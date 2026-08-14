@@ -38,8 +38,10 @@ def show_books():
 
 def find_book(title):
     for book in bookList:
-        if title.lower() in book[1].lower(): print(book)
-    print("Книга не найдена")
+        if title.lower() in book[1].lower():
+            print(book)
+
+
 
 def edit_book(number):
     for book in bookList:
@@ -47,17 +49,16 @@ def edit_book(number):
             title = input("Введите название книги: ")
             author = input("Введите автора книги: ")
             if title != "" and author != "":
-                for book in bookList:
-                    if title == book[1]:
+                for book1 in bookList:
+                    if title == book1[1]:
                         print("Книга уже добавлена")
                         return
-                bookList.remove(book)
-                book[1]=title
-                book[2]=author
-                bookList.append(book)
-                print("Книга изменина")
-                break
-            else: print("Не корректный ввод")
+            print(book)
+            year=book[3]
+            bookList.remove(book)
+            bookList.append([number,title,author,year])
+            print("Книга изменина")
+            return
 
 
 def delete_book(number):
@@ -65,6 +66,7 @@ def delete_book(number):
         if number == book[0]:
             bookList.remove(book)
             print("Книга Удалена")
+            return
     print("Книга не найдена")
 
 
@@ -77,8 +79,8 @@ def show_statistics():
     oldBook=bookList[0][3]
     newBook=bookList[0][3]
     for book in bookList:
-        if oldBook < book[3]:oldBook=book[3]
-        elif newBook > book[3]:newBook=book[3]
+        if oldBook > book[3]:oldBook=book[3]
+        elif newBook < book[3]:newBook=book[3]
     print("Самая старая книга: ", oldBook)
     print("Самая новая книга: ", newBook)
     return None
