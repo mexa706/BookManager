@@ -47,6 +47,10 @@ def edit_book(number):
             title = input("Введите название книги: ")
             author = input("Введите автора книги: ")
             if title != "" and author != "":
+                for book in bookList:
+                    if title == book[1]:
+                        print("Книга уже добавлена")
+                        return
                 bookList.remove(book)
                 book[1]=title
                 book[2]=author
