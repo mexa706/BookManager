@@ -3,7 +3,7 @@ from multiprocessing.process import active_children
 from pydoc import text
 from typing import List
 
-bookList = [[1,"Meha","Say",2004],[2,"Valera","Garaj",2000],[3,"Artemka","Da",2003]]
+bookList = [[1, "Meha", "Say", 2004], [2, "Valera", "Garaj", 2000], [3, "Artemka", "Da", 2003]]
 
 
 def show_menu():
@@ -19,12 +19,12 @@ def show_menu():
     print("|0---Выход---------------|")
 
 
-def add_book(title, author, year,bookNumber):
+def add_book(title, author, year, bookNumber):
     for book in bookList:
-        if title == book[1] :
+        if title == book[1]:
             print("Книга уже добавлена")
             return
-    bookList.append([ bookNumber , title, author, year])
+    bookList.append([bookNumber, title, author, year])
     print("Книга добавлена")
     return
 
@@ -42,7 +42,6 @@ def find_book(title):
             print(book)
 
 
-
 def edit_book(number):
     for book in bookList:
         if number == book[0]:
@@ -53,10 +52,9 @@ def edit_book(number):
                     if title == book1[1]:
                         print("Книга уже добавлена")
                         return
-            print(book)
-            year=book[3]
+            year = book[3]
             bookList.remove(book)
-            bookList.append([number,title,author,year])
+            bookList.append([number, title, author, year])
             print("Книга изменина")
             return
 
@@ -71,16 +69,18 @@ def delete_book(number):
 
 
 def show_statistics():
-    if len((bookList))==0 :
+    if len((bookList)) == 0:
         print("Книг нет ")
         return None
     print("Статистика: ")
     print("Всего книг: ", len(bookList))
-    oldBook=bookList[0][3]
-    newBook=bookList[0][3]
+    oldBook = bookList[0][3]
+    newBook = bookList[0][3]
     for book in bookList:
-        if oldBook > book[3]:oldBook=book[3]
-        elif newBook < book[3]:newBook=book[3]
+        if oldBook > book[3]:
+            oldBook = book[3]
+        elif newBook < book[3]:
+            newBook = book[3]
     print("Самая старая книга: ", oldBook)
     print("Самая новая книга: ", newBook)
     return None
@@ -96,12 +96,14 @@ def main():
             case 1:
                 title = input("Введите название книги: ")
                 author = input("Введите автора книги: ")
-                if title != "" and author != "" :
+                if title != "" and author != "":
                     year = input("Введите год книги: ")
                     if year != "":
                         year = int(year)
-                        bookNumber=bookNumber+1
-                        add_book(title, author, year,bookNumber)
+                        if 1500 <= year <= 2026:
+                            bookNumber = bookNumber + 1
+                            add_book(title, author, year, bookNumber)
+                        else: print("Не верный год книги ")
                     else:
                         print("Не корректный ввод")
                         continue
@@ -113,15 +115,17 @@ def main():
                 show_books()
             case 3:
                 title = input("Введите название книги: ")
-                if title != "" :
+                if title != "":
                     find_book(title)
-                else: print("Не корректный ввод")
+                else:
+                    print("Не корректный ввод")
             case 4:
                 number = input("Введите номер книги: ")
                 if number != "":
                     number = int(number)
                     delete_book(number)
-                else: print("Не корректный ввод")
+                else:
+                    print("Не корректный ввод")
             case 5:
                 show_statistics()
             case 6:
