@@ -26,14 +26,12 @@ def add_book(title, author, year, bookNumber):
             return
     bookList.append([bookNumber, title, author, year])
     print("Книга добавлена")
-    return
 
 
 def show_books():
     print("Все Книги: ")
     for book in bookList:
         print(book)
-    return None
 
 
 def find_book(title):
@@ -52,11 +50,14 @@ def edit_book(number):
                     if title == book1[1]:
                         print("Книга уже добавлена")
                         return
-            year = book[3]
-            bookList.remove(book)
-            bookList.append([number, title, author, year])
-            print("Книга изменина")
-            return
+
+                year = book[3]
+                bookList.remove(book)
+                bookList.append([number, title, author, year])
+                print("Книга изменина")
+                return
+    print("Не корректный ввод")
+
 
 
 def delete_book(number):
@@ -91,22 +92,32 @@ def main():
     bookNumber = 3
     while stop:
         show_menu()
-        a = int(input("Выберите команду: "))
+
+        a=""
+        try :
+            a = int(input("Выберите команду: "))
+        except ValueError:
+            print("Введите число!!!")
+
+
         match a:
             case 1:
                 title = input("Введите название книги: ")
                 author = input("Введите автора книги: ")
                 if title != "" and author != "":
-                    year = input("Введите год книги: ")
-                    if year != "":
-                        year = int(year)
+                    while True:
+                        try:
+                            year = int(input("Введите год книги: "))
+                        except ValueError:
+                            print("Введите число!!!")
+                            continue
                         if 1500 <= year <= 2026:
-                            bookNumber = bookNumber + 1
-                            add_book(title, author, year, bookNumber)
-                        else: print("Не верный год книги ")
-                    else:
-                        print("Не корректный ввод")
-                        continue
+                                bookNumber = bookNumber + 1
+                                add_book(title, author, year, bookNumber)
+                                break
+                        else:
+                            print("Не корректный ввод года")
+                            continue
                 else:
                     print("Не корректный ввод")
                     continue
