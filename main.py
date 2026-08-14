@@ -26,14 +26,12 @@ def add_book(title, author, year, bookNumber):
             return
     bookList.append([bookNumber, title, author, year])
     print("Книга добавлена")
-    return
 
 
 def show_books():
     print("Все Книги: ")
     for book in bookList:
         print(book)
-    return None
 
 
 def find_book(title):
