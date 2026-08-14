@@ -15,13 +15,18 @@ def show_menu():
     print("|3---Найти книгу---------|")
     print("|4---Удалить книгу-------|")
     print("|5---Статистика----------|")
+    print("|6---Изменить Книгу------|")
     print("|0---Выход---------------|")
 
 
 def add_book(title, author, year,bookNumber):
+    for book in bookList:
+        if title == book[1] :
+            print("Книга уже добавлена")
+            return
     bookList.append([ bookNumber , title, author, year])
     print("Книга добавлена")
-    return None
+    return
 
 
 def show_books():
@@ -33,8 +38,22 @@ def show_books():
 
 def find_book(title):
     for book in bookList:
-        if title in book[1]: print(book)
+        if title.lower() in book[1].lower(): print(book)
     print("Книга не найдена")
+
+def edit_book(number):
+    for book in bookList:
+        if number == book[0]:
+            title = input("Введите название книги: ")
+            author = input("Введите автора книги: ")
+            if title != "" and author != "":
+                bookList.remove(book)
+                book[1]=title
+                book[2]=author
+                bookList.append(book)
+                print("Книга изменина")
+                break
+            else: print("Не корректный ввод")
 
 
 def delete_book(number):
@@ -99,6 +118,13 @@ def main():
                 else: print("Не корректный ввод")
             case 5:
                 show_statistics()
+            case 6:
+                number = input("Введите номер книги: ")
+                if number != "":
+                    number = int(number)
+                    edit_book(number)
+                else:
+                    print("Не корректный ввод")
             case 0:
                 stop = False
             case _:
